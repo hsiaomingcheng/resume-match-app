@@ -1,35 +1,35 @@
-# 履歷與職缺契合度分析網站
+# Resume–Job Match Analysis Website
 
-## 技術棧
-- 前端：React + Vite + Tailwind CSS
-- AI：Gemini API（透過 Vercel Serverless Function 呼叫，Key 不外洩於前端）
-- 部署：Vercel
+## Tech Stack
+- Frontend: React + Vite + Tailwind CSS
+- AI: Gemini API (called via a Vercel Serverless Function so the key is never exposed to the frontend)
+- Deployment: Vercel
 
-## 本機開發
+## Local Development
 
 ```bash
 npm install
-cp .env.local.example .env.local   # 填入你的 GEMINI_API_KEY
-npm i -g vercel                     # 若尚未安裝
-vercel dev                          # 同時跑前端 + /api Serverless Function
+cp .env.local.example .env.local   # fill in your GEMINI_API_KEY
+npm i -g vercel                     # if not already installed
+vercel dev                          # runs the frontend + /api Serverless Function together
 ```
 
-`vercel dev` 才會執行 `/api` 底下的 Serverless Function；純 `npm run dev` 只會跑前端，`/api/analyze` 呼叫不到。
+Only `vercel dev` executes the Serverless Function under `/api`; plain `npm run dev` runs the frontend only, and `/api/analyze` will not be reachable.
 
-## 專案結構
+## Project Structure
 
 ```
 resume-match-app/
 ├── api/
-│   └── analyze.js          # Serverless Function，呼叫 Gemini API
+│   └── analyze.js          # Serverless Function that calls the Gemini API
 ├── src/
 │   ├── components/
-│   │   ├── ResumeUpload.jsx    # 履歷上傳與解析
-│   │   ├── JobInput.jsx        # 職缺內容輸入
-│   │   └── AnalysisResult.jsx  # 分析結果顯示
+│   │   ├── ResumeUpload.jsx    # Resume upload and parsing
+│   │   ├── JobInput.jsx        # Job description input
+│   │   └── AnalysisResult.jsx  # Analysis result display
 │   ├── utils/
-│   │   ├── parseResume.js      # PDF/Word 解析邏輯
-│   │   └── api.js              # 呼叫 /api/analyze
+│   │   ├── parseResume.js      # PDF/Word parsing logic
+│   │   └── api.js              # Calls /api/analyze
 │   ├── App.jsx
 │   ├── main.jsx
 │   └── index.css
@@ -37,14 +37,14 @@ resume-match-app/
 └── package.json
 ```
 
-## 部署到 Vercel
+## Deploying to Vercel
 
-1. 推上 GitHub
-2. Vercel 匯入專案
-3. 在 Vercel 專案設定 → Environment Variables 加入 `GEMINI_API_KEY`
-4. 部署
+1. Push to GitHub
+2. Import the project in Vercel
+3. Add `GEMINI_API_KEY` under the project's Settings → Environment Variables
+4. Deploy
 
-## 之後可以加的功能
-- 分析並建議求職者該加強哪方面能力
-- 一鍵產出專屬該職位的 Cover Letter
-- 使用者登入 / 履歷紀錄儲存
+## Future Features
+- Analyze and suggest which skills the applicant should strengthen
+- One-click cover letter generation tailored to the role
+- User login / resume history storage
