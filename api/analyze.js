@@ -28,12 +28,11 @@ ${jobDescription}
   const requestBody = {
     contents: [{ parts: [{ text: prompt }] }],
     generationConfig: {
+      temperature: 0.2,        // 明確指定低隨機性，確保結果穩定可覆現
       responseMimeType: 'application/json',
       responseSchema: {
         type: 'OBJECT',
         properties: {
-          matchScore: { type: 'INTEGER', description: '0-100 的契合度分數' },
-          summary: { type: 'STRING', description: '一句話總結契合程度' },
           strengths: {
             type: 'ARRAY',
             items: { type: 'STRING' },
@@ -44,6 +43,8 @@ ${jobDescription}
             items: { type: 'STRING' },
             description: '職缺要求但履歷未展現的能力缺口',
           },
+          matchScore: { type: 'INTEGER', description: '0-100 的契合度分數' },
+          summary: { type: 'STRING', description: '一句話總結契合程度' },
         },
         required: ['matchScore', 'summary', 'strengths', 'gaps'],
       },
