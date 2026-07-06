@@ -9,33 +9,33 @@ export default async function handler(req, res) {
     return res.status(400).json({ message: '缺少履歷或職缺內容' });
   }
 
-  const prompt = `你是一位專業的人資招募顧問。請比對以下「求職者履歷」與「職缺內容」，評估兩者的契合程度。
+  const prompt = `You are a professional HR recruitment consultant. Compare the following "Candidate Resume" with the "Job Description" and evaluate how well they match.
 
-# 求職者履歷
+# Candidate Resume
 ${resumeText}
 
-# 職缺內容
+# Job Description
 ${jobDescription}
 
-# 評估要求
-請根據以下面向進行逐項比對分析：
-1. 技能符合度：履歷中的技能與職缺要求的重疊程度
-2. 經驗符合度：工作經驗年資、產業背景是否相符
-3. 關鍵字缺漏：職缺中提到但履歷未展現的重要能力
+# Evaluation Requirements
+Perform a point-by-point comparison across the following dimensions:
+1. Skill match: overlap between the candidate's skills and the job's requirements
+2. Experience match: whether years of experience and industry background align
+3. Keyword gaps: important capabilities mentioned in the job description but not demonstrated in the resume
 
-完成上述逐項分析後，請對照以下評分區間，選出與分析結果最相符的分數，不要憑直覺給分：
-- 90-100：高度契合，核心技能與經驗幾乎完全符合職缺要求
-- 75-89：良好契合，主要要求符合，僅少數項目待補強
-- 60-74：中等契合，具備部分條件，但有明顯能力缺口
-- 40-59：低度契合，僅少數項目相符
-- 0-39：幾乎不契合，履歷與職缺方向明顯不符
+After completing the above point-by-point analysis, refer to the score bands below and select the score that best matches your analysis. Do not score by gut feeling:
+- 90-100: Highly matched — core skills and experience almost fully meet the job requirements
+- 75-89: Well matched — most requirements are met, only a few items need improvement
+- 60-74: Moderately matched — some requirements are met, but with clear capability gaps
+- 40-59: Weakly matched — only a few items match
+- 0-39: Poorly matched — the resume clearly does not align with the job's direction
 
-請給出 0-100 的契合度分數，並列出具體理由。理由必須基於履歷和職缺的實際內容，不要憑空推測，且分數需與上述區間定義及逐項分析結果一致。`;
+Provide a match score from 0-100 and list specific reasons. The reasons must be based on the actual content of the resume and job description, not speculation, and the score must be consistent with the score band definitions and your point-by-point analysis.`;
 
   const requestBody = {
     contents: [{ parts: [{ text: prompt }] }],
     generationConfig: {
-      temperature: 0.2,        // 明確指定低隨機性，確保結果穩定可覆現
+      temperature: 0.2,        // Explicitly set low randomness for stable, reproducible results
       responseMimeType: 'application/json',
       responseSchema: {
         type: 'OBJECT',
@@ -43,15 +43,15 @@ ${jobDescription}
           strengths: {
             type: 'ARRAY',
             items: { type: 'STRING' },
-            description: '履歷與職缺相符的具體優勢',
+            description: 'Specific strengths where the resume matches the job',
           },
           gaps: {
             type: 'ARRAY',
             items: { type: 'STRING' },
-            description: '職缺要求但履歷未展現的能力缺口',
+            description: 'Capability gaps required by the job but not shown in the resume',
           },
-          matchScore: { type: 'INTEGER', description: '0-100 的契合度分數' },
-          summary: { type: 'STRING', description: '一句話總結契合程度' },
+          matchScore: { type: 'INTEGER', description: 'Match score from 0-100' },
+          summary: { type: 'STRING', description: 'One-sentence summary of the match level' },
         },
         required: ['matchScore', 'summary', 'strengths', 'gaps'],
       },
@@ -70,7 +70,7 @@ ${jobDescription}
 
     if (!response.ok) {
       const errText = await response.text();
-      console.error('Gemini API 錯誤:', errText);
+      console.error('Gemini API error:', errText);
       return res.status(502).json({ message: 'AI 分析服務暫時無法使用' });
     }
 
@@ -85,14 +85,14 @@ ${jobDescription}
     const resultText = data.candidates?.[0]?.content?.parts?.[0]?.text;
 
     if (!resultText) {
-      console.error('Gemini 回應格式異常:', data);
+      console.error('Gemini response format invalid:', data);
       return res.status(502).json({ message: 'AI 回應格式異常，請稍後再試' });
     }
 
     const result = JSON.parse(resultText);
     return res.status(200).json(result);
   } catch (err) {
-    console.error('分析失敗:', err);
+    console.error('Analysis failed:', err);
     return res.status(500).json({ message: '分析過程發生錯誤' });
   }
 }
