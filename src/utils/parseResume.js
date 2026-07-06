@@ -26,17 +26,17 @@ async function extractDocxText(file) {
 const MAX_FILE_SIZE_MB = 10;
 
 /**
- * 依副檔名判斷解析方式，將履歷檔案轉為純文字
+ * Convert a resume file to plain text based on its extension
  * @param {File} file
  * @returns {Promise<string>}
  */
 export async function parseResumeFile(file) {
   if (!file) {
-    throw new Error('請選擇一個檔案');
+    throw new Error('Please select a file');
   }
 
   if (file.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
-    throw new Error(`檔案大小不能超過 ${MAX_FILE_SIZE_MB}MB`);
+    throw new Error(`File size cannot exceed ${MAX_FILE_SIZE_MB}MB`);
   }
 
   if (file.type === 'application/pdf') {
@@ -48,8 +48,8 @@ export async function parseResumeFile(file) {
   }
 
   if (file.name.toLowerCase().endsWith('.doc')) {
-    throw new Error('不支援舊版 .doc 格式，請另存為 .docx 或 .pdf');
+    throw new Error('Legacy .doc format is not supported — please save as .docx or .pdf');
   }
 
-  throw new Error('僅支援 .pdf 或 .docx 格式');
+  throw new Error('Only .pdf or .docx files are supported');
 }

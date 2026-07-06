@@ -33,10 +33,10 @@ export default function App() {
       <div className="mx-auto max-w-3xl px-4 py-12">
         <header className="mb-10">
           <h1 className="text-2xl font-medium text-stone-800">
-            履歷與職缺契合度分析
+            Resume & Job Match Analysis
           </h1>
           <p className="mt-1 text-sm text-stone-600">
-            上傳你的履歷，貼上屬意的職缺內容，讓 AI 幫你分析契合程度
+            Upload your resume and paste the job description you're targeting — let AI break down how well they match.
           </p>
         </header>
 
@@ -51,7 +51,7 @@ export default function App() {
                        transition hover:bg-sage-700
                        disabled:cursor-not-allowed disabled:bg-sand-300 disabled:text-stone-600"
           >
-            {loading ? '分析中...' : '開始分析'}
+            {loading ? 'Analysing...' : 'Analyse Match'}
           </button>
 
           {error && (

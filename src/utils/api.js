@@ -1,5 +1,5 @@
 /**
- * 呼叫 /api/analyze，取得履歷與職缺的契合度分析
+ * Call /api/analyze to get the resume-job match analysis
  * @param {string} resumeText
  * @param {string} jobDescription
  * @returns {Promise<{matchScore: number, summary: string, strengths: string[], gaps: string[]}>}
@@ -13,7 +13,7 @@ export async function analyzeResume(resumeText, jobDescription) {
 
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}));
-    throw new Error(errorData.message || '分析失敗，請稍後再試');
+    throw new Error(errorData.message || 'Analysis failed — please try again later');
   }
 
   return response.json();

@@ -28,7 +28,7 @@ export default function ResumeUpload({ onTextExtracted }) {
   return (
     <div className="space-y-2">
       <label className="block text-sm font-medium text-stone-700">
-        上傳履歷（.pdf 或 .docx）
+        Upload resume (.pdf or .docx)
       </label>
       <label
         className="flex cursor-pointer items-center justify-center rounded-lg border border-dashed
@@ -41,7 +41,7 @@ export default function ResumeUpload({ onTextExtracted }) {
           className="hidden"
           onChange={handleFileChange}
         />
-        {parsing ? '解析中...' : fileName || '點擊選擇檔案，或拖曳到此處'}
+        {parsing ? 'Parsing...' : fileName || 'Click to choose a file, or drag it here'}
       </label>
       {error && <p className="text-sm text-red-700">{error}</p>}
     </div>

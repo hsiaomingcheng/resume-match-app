@@ -12,7 +12,7 @@ function ScoreBadge({ score }) {
     <div
       className={`inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-sm font-medium ${styles[level]}`}
     >
-      契合度 {score} 分
+      Match score: {score}
     </div>
   );
 }
@@ -31,7 +31,7 @@ export default function AnalysisResult({ data }) {
 
       <div className="grid gap-6 sm:grid-cols-2">
         <div>
-          <h3 className="mb-2 text-sm font-medium text-sage-700">符合的優勢</h3>
+          <h3 className="mb-2 text-sm font-medium text-sage-700">Strengths</h3>
           <ul className="space-y-1.5 text-sm text-stone-700">
             {strengths.map((item, i) => (
               <li key={i} className="flex gap-2">
@@ -43,7 +43,7 @@ export default function AnalysisResult({ data }) {
         </div>
 
         <div>
-          <h3 className="mb-2 text-sm font-medium text-stone-700">能力缺口</h3>
+          <h3 className="mb-2 text-sm font-medium text-stone-700">Gaps</h3>
           <ul className="space-y-1.5 text-sm text-stone-700">
             {gaps.map((item, i) => (
               <li key={i} className="flex gap-2">

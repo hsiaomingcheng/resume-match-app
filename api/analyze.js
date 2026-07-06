@@ -1,12 +1,12 @@
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
-    return res.status(405).json({ message: '不支援的請求方法' });
+    return res.status(405).json({ message: 'Unsupported request method' });
   }
 
   const { resumeText, jobDescription } = req.body;
 
   if (!resumeText || !jobDescription) {
-    return res.status(400).json({ message: '缺少履歷或職缺內容' });
+    return res.status(400).json({ message: 'Missing resume or job description' });
   }
 
   const prompt = `You are a professional HR recruitment consultant. Compare the following "Candidate Resume" with the "Job Description" and evaluate how well they match.
@@ -71,7 +71,7 @@ Provide a match score from 0-100 and list specific reasons. The reasons must be 
     if (!response.ok) {
       const errText = await response.text();
       console.error('Gemini API error:', errText);
-      return res.status(502).json({ message: 'AI 分析服務暫時無法使用' });
+      return res.status(502).json({ message: 'The AI analysis service is temporarily unavailable' });
     }
 
     const data = await response.json();
@@ -79,20 +79,20 @@ Provide a match score from 0-100 and list specific reasons. The reasons must be 
     if (data.candidates?.[0]?.finishReason === 'SAFETY') {
       return res
         .status(422)
-        .json({ message: '內容可能包含不適當內容，請確認履歷或職缺描述' });
+        .json({ message: 'The content may include inappropriate material — please check your resume or job description' });
     }
 
     const resultText = data.candidates?.[0]?.content?.parts?.[0]?.text;
 
     if (!resultText) {
       console.error('Gemini response format invalid:', data);
-      return res.status(502).json({ message: 'AI 回應格式異常，請稍後再試' });
+      return res.status(502).json({ message: 'The AI response format was invalid — please try again later' });
     }
 
     const result = JSON.parse(resultText);
     return res.status(200).json(result);
   } catch (err) {
     console.error('Analysis failed:', err);
-    return res.status(500).json({ message: '分析過程發生錯誤' });
+    return res.status(500).json({ message: 'An error occurred during analysis' });
   }
 }
