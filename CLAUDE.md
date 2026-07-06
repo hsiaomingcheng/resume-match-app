@@ -72,17 +72,13 @@ When adding features, follow the existing component/utils separation: UI logic g
 4. **Keep changes small and reversible**
    Limit each change to a single feature or component where possible, to make it easy to track and roll back.
 
-## Bilingual Documentation Sync
+## Language
 
-This project keeps `CLAUDE.md` and `README.md` in both English and Traditional Chinese:
-
-- `CLAUDE.md` (English) ↔ `CLAUDE.zh-tw.md` (Chinese)
-- `README.md` (English) ↔ `README.zh-tw.md` (Chinese)
-
-**Whenever you update one language version, you must sync the corresponding file in the other language**, keeping content, structure, and section order consistent across both. After updating, verify that the two versions actually correspond; never update only one language.
+- All user-facing text (UI labels, messages), code comments, error messages, and the Gemini prompt are written in **English**. The target market is New Zealand.
+- A Traditional Chinese version of the project is maintained separately on the `zh-tw-version` branch. Do not add Chinese content to this branch, and do not reintroduce bilingual files or sync rules here.
 
 ## Out of Scope for Now
 
 - No backend database, no user login
-- No internationalization (Traditional Chinese UI only for now)
+- No internationalization on this branch (English only; Chinese lives on the `zh-tw-version` branch)
 - No "skill suggestions" or "cover letter generation" features unless explicitly requested
