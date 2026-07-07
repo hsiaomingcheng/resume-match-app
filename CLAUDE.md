@@ -72,6 +72,13 @@ When adding features, follow the existing component/utils separation: UI logic g
 4. **Keep changes small and reversible**
    Limit each change to a single feature or component where possible, to make it easy to track and roll back.
 
+5. **Verify UI work with Playwright before reporting done**
+   After building or changing any UI, run a browser-based check with Playwright (ask before installing it the first time), and report the results to me:
+   - Responsive layout: load the page at 375px (mobile), 768px (tablet), and 1440px (desktop), screenshot each, and check every section for broken layout, overflowing text, overlapping elements, or too-small tap targets.
+   - Interactions: click the primary buttons and links and confirm they do what they should (navigation, anchor scrolling, expand/collapse, form submission).
+   - Technical: confirm the build passes and there are no console errors or warnings.
+   Report findings (with screenshots) and list any problems first — do not fix them automatically. I decide what to fix; then apply fixes using the block-by-block flow above. Note that automated checks and screenshots assist review but do not replace my final visual sign-off.
+
 ## Language
 
 - All user-facing text (UI labels, messages), code comments, error messages, and the Gemini prompt are written in **English**. The target market is New Zealand.
