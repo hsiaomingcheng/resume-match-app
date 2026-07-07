@@ -26,7 +26,7 @@ async function extractDocxText(file) {
 const MAX_FILE_SIZE_MB = 10;
 
 /**
- * Convert a resume file to plain text based on its extension
+ * Convert a CV file to plain text based on its extension
  * @param {File} file
  * @returns {Promise<string>}
  */

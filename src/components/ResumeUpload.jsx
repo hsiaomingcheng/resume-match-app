@@ -28,7 +28,7 @@ export default function ResumeUpload({ onTextExtracted }) {
   return (
     <div className="space-y-2">
       <label className="block text-sm font-medium text-stone-700">
-        Upload resume (.pdf or .docx)
+        Upload CV (.pdf or .docx)
       </label>
       <label
         className="flex cursor-pointer items-center justify-center rounded-lg border border-dashed

@@ -1,5 +1,5 @@
 /**
- * Call /api/analyze to get the resume-job match analysis
+ * Call /api/analyze to get the CV-job match analysis
  * @param {string} resumeText
  * @param {string} jobDescription
  * @returns {Promise<{matchScore: number, summary: string, strengths: string[], gaps: string[]}>}
